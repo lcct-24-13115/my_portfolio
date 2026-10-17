@@ -9,13 +9,12 @@ import '../app_theme.dart';
 class ContactTab extends StatelessWidget {
   const ContactTab({super.key});
 
-  // TODO: Replace with your real contact details.
   // Format: (icon, label, value)
   static const List<(IconData, String, String)> _items = [
-    (Icons.email, 'Email', 'your.email@example.com'),
-    (Icons.phone, 'Phone', '+63 900 000 0000'),
-    (Icons.facebook, 'Facebook', 'facebook.com/your.profile'),
+    (Icons.email, 'Email', 'cassandraalemania@gmail.com'),
+    (Icons.phone, 'Phone', '0956-297-3655'),
     (Icons.link, 'GitHub', 'github.com/lcct-24-13115'),
+    (Icons.location_on, 'Location', 'Tanauan City, Batangas'),
   ];
 
   /// Copies [value] to the clipboard and confirms with a SnackBar.

@@ -6,14 +6,16 @@ import '../app_theme.dart';
 class PersonalInfoTab extends StatelessWidget {
   const PersonalInfoTab({super.key});
 
-  // TODO: Replace these with your real details.
-  static const String _name = 'Julia Cassandra Alemania';
+  static const String _name = 'Julia Cassandra U. Alemania';
   static const String _age = '21';
-  static const String _course = 'BSIT - 3rd Year';
+  static const String _course = 'BS Information Technology';
   static const String _bio =
       'I am a third-year BS Information Technology student at La Consolacion '
-      'College Tanauan. I enjoy building mobile apps with Flutter and I want '
-      'to grow into a developer who creates useful, well-designed software.';
+      'College Tanauan and a Dean\'s Lister. I enjoy programming, web and '
+      'mobile app development, and solving problems with technology. I am '
+      'looking for an IT internship or entry-level role where I can apply '
+      'my technical skills, learn from real projects, and contribute to the '
+      'success of the team.';
 
   @override
   Widget build(BuildContext context) {

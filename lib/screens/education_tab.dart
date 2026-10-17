@@ -6,22 +6,31 @@ import '../app_theme.dart';
 class EducationTab extends StatelessWidget {
   const EducationTab({super.key});
 
-  // TODO: Replace the school names, strand, and years with your real ones.
   // Kept in a list (newest first) so the UI code below stays short.
-  // Format: (school, degree, years)
+  // Format: (school, degree / level, years)
   static const List<(String, String, String)> _items = [
     (
       'La Consolacion College Tanauan',
       'Bachelor of Science in Information Technology',
-      '2023 - Present'
+      '2024 - Present'
     ),
     (
-      'Your Senior High School',
-      'Senior High School (Your Strand)',
+      'National Teachers College',
+      'Bachelor of Science in Accountancy',
+      '2023 - 2024'
+    ),
+    (
+      'Immaculate Heart of Mary College Inc.',
+      'Senior High School - Science, Technology, Engineering and '
+          'Mathematics (STEM)',
       '2021 - 2023'
     ),
-    ('Your Junior High School', 'Junior High School', '2017 - 2021'),
-    ('Your Elementary School', 'Elementary', '2011 - 2017'),
+    (
+      'San Juan City Integrated High School',
+      'High School',
+      '2016 - 2021'
+    ),
+    ('San Juan City Integrated School', 'Elementary', '2010 - 2016'),
   ];
 
   @override

@@ -6,26 +6,48 @@ import '../app_theme.dart';
 class InterestsTab extends StatelessWidget {
   const InterestsTab({super.key});
 
-  // TODO: Replace the descriptions with your own words and real projects.
   // Format: (icon, title, description)
   static const List<(IconData, String, String)> _items = [
     (
+      Icons.code,
+      'Programming & Web Development',
+      'Building programs and websites with Python, Java, C++, HTML, CSS '
+          'and JavaScript.'
+    ),
+    (
       Icons.phone_android,
       'Mobile App Development',
-      'Building cross-platform apps with Flutter and Dart, focusing on '
-          'clean interfaces and a smooth user experience.'
+      'Creating cross-platform apps with Flutter and Dart, focusing on '
+          'clean design and a smooth user experience.'
+    ),
+    (
+      Icons.psychology,
+      'AI, Machine Learning & Data Analytics',
+      'Attending seminars on machine learning, AI in industry, and data '
+          'analytics to learn how data supports better decisions.'
     ),
     (
       Icons.science,
-      'Area of Research',
-      'Describe a topic you are curious about, e.g. mobile app usability '
-          'or emerging technologies.'
+      'Research',
+      'Research Excellence Awardee (2023). Interested in using research '
+          'to solve real problems with technology.'
+    ),
+    (
+      Icons.brush,
+      'Graphic Design',
+      'Champion, LCC Tanauan Graphic Design Contest (2024).'
     ),
     (
       Icons.folder_special,
       'Notable Projects',
-      'Tom and Jerry game (Flutter), My Portfolio app. Add any '
-          'publications or other projects here.'
+      'Tom and Jerry game (Flutter) and this Portfolio app (Flutter).'
+    ),
+    (
+      Icons.emoji_events,
+      'Achievements',
+      'Dean\'s Lister, La Consolacion College Tanauan (2025). Second '
+          'Runner-Up, Organizational Performance (2024). Leadership '
+          'Awardee, Immaculate Heart of Mary College (2021-2023).'
     ),
   ];
 

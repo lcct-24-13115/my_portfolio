@@ -6,26 +6,70 @@ import '../app_theme.dart';
 class SkillsTab extends StatelessWidget {
   const SkillsTab({super.key});
 
-  // TODO: Replace with your real skills and certificates.
   static const List<String> _technical = [
-    'Flutter',
-    'Dart',
+    'Python',
     'Java',
-    'SQL',
-    'Git & GitHub',
+    'C',
+    'C++',
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'Flutter & Dart',
+    'Version Control (Git)',
+    'OS Installation',
+    'Computer Maintenance & Troubleshooting',
   ];
+
   static const List<String> _nonTechnical = [
-    'Teamwork',
-    'Communication',
-    'Time Management',
+    'Leadership',
+    'Research',
+    'Graphic Design',
+    'Poster Making',
+    'Sports Journalism',
     'Problem Solving',
   ];
-  static const List<String> _certifications = [
-    'Add your certificate or training here',
+
+  // Format: (seminar / training, venue, date)
+  static const List<(String, String, String)> _training = [
+    (
+      'Data Analytics for Better Decisions',
+      'Manila, Phils.',
+      'October 15, 2026'
+    ),
+    (
+      'Cloud Tools for Productivity',
+      'Manila, Phils.',
+      'October 14, 2026'
+    ),
+    (
+      'Financial Technology and AI Industry Seminar',
+      'TP ICAP, Bonifacio Global City, Taguig',
+      'March 23, 2026'
+    ),
+    (
+      'Machine Learning and Software Development Seminar',
+      'La Consolacion College Tanauan',
+      'March 18-19, 2026'
+    ),
+    (
+      '2-Day Technical Training: Robotics / Programming / Hackathon',
+      'La Consolacion College Tanauan',
+      'March 18-19, 2026'
+    ),
+    (
+      'Batangas Information Technology Conference (BITCON)',
+      'Lipa City, Batangas',
+      'April 25, 2025'
+    ),
+    (
+      'Intel Seminar: Navigating the AI Frontier',
+      'La Consolacion College Tanauan',
+      'March 25, 2025'
+    ),
   ];
 
   /// Builds one titled card whose items are shown as chips.
-  Widget _section(BuildContext context, String title, List<String> items) {
+  Widget _chipSection(BuildContext context, String title, List<String> items) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -46,14 +90,40 @@ class SkillsTab extends StatelessWidget {
     );
   }
 
+  /// Builds the card listing seminars and trainings attended.
+  Widget _trainingSection(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text('Certifications & Training',
+                  style: Theme.of(context).textTheme.titleLarge),
+            ),
+            for (final (title, venue, date) in _training)
+              ListTile(
+                leading: const Icon(Icons.workspace_premium),
+                title: Text(title),
+                subtitle: Text('$venue\n$date'),
+                isThreeLine: true,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: AppTheme.pagePadding,
       children: [
-        _section(context, 'Technical Skills', _technical),
-        _section(context, 'Non-Technical Skills', _nonTechnical),
-        _section(context, 'Certifications & Training', _certifications),
+        _chipSection(context, 'Technical Skills', _technical),
+        _chipSection(context, 'Non-Technical Skills', _nonTechnical),
+        _trainingSection(context),
       ],
     );
   }
