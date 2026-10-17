@@ -13,6 +13,12 @@ class ContactTab extends StatelessWidget {
   static const List<(IconData, String, String)> _items = [
     (Icons.email, 'Email', 'cassandraalemania@gmail.com'),
     (Icons.phone, 'Phone', '0956-297-3655'),
+    (Icons.facebook, 'Facebook', 'facebook.com/JCUA24'),
+    (
+      Icons.business_center,
+      'LinkedIn',
+      'linkedin.com/in/julia-cassandra-alemania-911831444'
+    ),
     (Icons.link, 'GitHub', 'github.com/lcct-24-13115'),
     (Icons.location_on, 'Location', 'Tanauan City, Batangas'),
   ];

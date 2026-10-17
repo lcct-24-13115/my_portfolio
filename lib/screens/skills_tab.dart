@@ -16,6 +16,10 @@ class SkillsTab extends StatelessWidget {
     'JavaScript',
     'Flutter & Dart',
     'Version Control (Git)',
+    'Computer Networking',
+    'IPv4 / IPv6 Addressing',
+    'Cisco IOS',
+    'Network Troubleshooting',
     'OS Installation',
     'Computer Maintenance & Troubleshooting',
   ];
@@ -27,6 +31,42 @@ class SkillsTab extends StatelessWidget {
     'Poster Making',
     'Sports Journalism',
     'Problem Solving',
+  ];
+
+  // Format: (certificate, issuer, date issued)
+  // Cisco Networking Academy certificates, newest first.
+  static const List<(String, String, String)> _certifications = [
+    (
+      'JavaScript Essentials 1',
+      'Cisco Networking Academy with OpenEDG JavaScript Institute',
+      'September 28, 2026'
+    ),
+    (
+      'HTML Essentials',
+      'Cisco Networking Academy with JS Institute',
+      'August 11, 2026'
+    ),
+    (
+      'Network Technician Career Path',
+      'Cisco Networking Academy',
+      'April 22, 2026'
+    ),
+    (
+      'Network Support and Security',
+      'Cisco Networking Academy',
+      'April 20, 2026'
+    ),
+    (
+      'Network Addressing and Basic Troubleshooting',
+      'Cisco Networking Academy',
+      'April 20, 2026'
+    ),
+    (
+      'Networking Devices and Basic Configuration',
+      'Cisco Networking Academy',
+      'April 8, 2026'
+    ),
+    ('Networking Basics', 'Cisco Networking Academy', 'April 7, 2026'),
   ];
 
   // Format: (seminar / training, venue, date)
@@ -90,8 +130,9 @@ class SkillsTab extends StatelessWidget {
     );
   }
 
-  /// Builds the card listing seminars and trainings attended.
-  Widget _trainingSection(BuildContext context) {
+  /// Builds a card with a title and a list of (title, detail, date) rows.
+  Widget _listSection(BuildContext context, String title, IconData icon,
+      List<(String, String, String)> rows) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -100,14 +141,14 @@ class SkillsTab extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text('Certifications & Training',
+              child: Text(title,
                   style: Theme.of(context).textTheme.titleLarge),
             ),
-            for (final (title, venue, date) in _training)
+            for (final (name, detail, date) in rows)
               ListTile(
-                leading: const Icon(Icons.workspace_premium),
-                title: Text(title),
-                subtitle: Text('$venue\n$date'),
+                leading: Icon(icon),
+                title: Text(name),
+                subtitle: Text('$detail\n$date'),
                 isThreeLine: true,
               ),
           ],
@@ -123,7 +164,10 @@ class SkillsTab extends StatelessWidget {
       children: [
         _chipSection(context, 'Technical Skills', _technical),
         _chipSection(context, 'Non-Technical Skills', _nonTechnical),
-        _trainingSection(context),
+        _listSection(context, 'Certifications', Icons.verified,
+            _certifications),
+        _listSection(context, 'Seminars & Training',
+            Icons.workspace_premium, _training),
       ],
     );
   }

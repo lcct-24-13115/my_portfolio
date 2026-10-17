@@ -15,6 +15,12 @@ class InterestsTab extends StatelessWidget {
           'and JavaScript.'
     ),
     (
+      Icons.router,
+      'Networking & IT Support',
+      'Completed the Cisco Network Technician Career Path: IP addressing, '
+          'Cisco IOS configuration, troubleshooting, and network security.'
+    ),
+    (
       Icons.phone_android,
       'Mobile App Development',
       'Creating cross-platform apps with Flutter and Dart, focusing on '
