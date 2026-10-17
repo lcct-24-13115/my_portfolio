@@ -17,7 +17,7 @@ class ContactTab extends StatelessWidget {
     (
       Icons.business_center,
       'LinkedIn',
-      'linkedin.com/in/julia-cassandra-alemania-911831444'
+      'linkedin.com/in/julia-cassandra-alemania-911831444',
     ),
     (Icons.link, 'GitHub', 'github.com/lcct-24-13115'),
     (Icons.location_on, 'Location', 'Tanauan City, Batangas'),
@@ -27,9 +27,8 @@ class ContactTab extends StatelessWidget {
   Future<void> _copy(BuildContext context, String label, String value) async {
     await Clipboard.setData(ClipboardData(text: value));
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$label copied to clipboard')),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('$label copied to clipboard')));
   }
 
   @override

@@ -12,24 +12,20 @@ class EducationTab extends StatelessWidget {
     (
       'La Consolacion College Tanauan',
       'Bachelor of Science in Information Technology',
-      '2024 - Present'
+      '2024 - Present',
     ),
     (
       'National Teachers College',
       'Bachelor of Science in Accountancy',
-      '2023 - 2024'
+      '2023 - 2024',
     ),
     (
       'Immaculate Heart of Mary College Inc.',
       'Senior High School - Science, Technology, Engineering and '
           'Mathematics (STEM)',
-      '2021 - 2023'
+      '2021 - 2023',
     ),
-    (
-      'San Juan City Integrated High School',
-      'High School',
-      '2016 - 2021'
-    ),
+    ('San Juan City Integrated High School', 'High School', '2016 - 2021'),
     ('San Juan City Integrated School', 'Elementary', '2010 - 2016'),
   ];
 

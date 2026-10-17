@@ -48,11 +48,17 @@ class PersonalInfoTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        Text(_name,
-            textAlign: TextAlign.center, style: textTheme.headlineMedium),
+        Text(
+          _name,
+          textAlign: TextAlign.center,
+          style: textTheme.headlineMedium,
+        ),
         const SizedBox(height: 4),
-        Text('Age: $_age  |  $_course',
-            textAlign: TextAlign.center, style: textTheme.titleMedium),
+        Text(
+          'Age: $_age  |  $_course',
+          textAlign: TextAlign.center,
+          style: textTheme.titleMedium,
+        ),
         const SizedBox(height: 20),
         Card(
           child: Padding(
