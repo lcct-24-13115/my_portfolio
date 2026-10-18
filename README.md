@@ -9,14 +9,16 @@ La Consolacion College Tanauan).
 ## Features
 
 - Five tabs built with `TabBar` and `TabBarView`, each with a Material icon:
-  - **Personal**: photo, name, age, bio, and quick contact buttons
+  - **Personal**: photo, name, age, bio, career objective, personal details, and
+    quick contact buttons
   - **Education**: schools in reverse chronological order, with honors
   - **Skills**: technical and non-technical skills, plus certifications and
     training (Cisco Networking Academy, webinars, seminars). Tap a
     certificate thumbnail to view and zoom the full image.
   - **Interests**: specializations, notable projects, and awards
-  - **Contact**: email, phone, Facebook, LinkedIn, GitHub, and location.
-    Tap a row to open it, or the copy button to copy it.
+  - **Contact**: email, phone, Facebook, Instagram, TikTok, LinkedIn,
+    GitHub, and home address (opens in Google Maps). Tap a row to open it,
+    or the copy button to copy it.
 - One cohesive design theme (color scheme, typography, spacing) defined in
   `lib/app_theme.dart`, with a light/dark mode switch in the app bar.
 - Responsive layout that works on phones, tablets, and the web.

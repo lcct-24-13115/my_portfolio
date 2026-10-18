@@ -119,6 +119,7 @@ class SkillsTab extends StatelessWidget {
     ),
   ];
 
+  // Seminars shown in the same card as the webinars.
   // Format: (seminar / training, venue and date, image file or null)
   // Newest first. Rows with an image can be tapped to view the certificate.
   static const List<(String, String, String?)> _training = [
@@ -234,7 +235,7 @@ class SkillsTab extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // The header is skipped when a card has no title (webinars).
+            // The header is skipped when a card has no title.
             if (title != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -305,19 +306,15 @@ class SkillsTab extends StatelessWidget {
               (name, '$issuer\n$date', image),
           ],
         ),
-        // 2) Webinars, right below the Cisco certifications (no card title).
+        // 2) Webinars and seminars in one card, right below Cisco.
         _certificateCard(
           context,
+          title: 'Webinars & Training',
           rows: [
             for (final (name, location, date, image) in _webinars)
               (name, '$location\n$date', image),
+            ..._training,
           ],
-        ),
-        // 3) Other seminars and trainings.
-        _certificateCard(
-          context,
-          title: 'Other Seminars & Training',
-          rows: _training,
         ),
       ],
     );

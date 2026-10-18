@@ -29,7 +29,7 @@ class ContactTab extends StatelessWidget {
         for (final (icon, label, shown, link) in contactItems)
           Card(
             child: ListTile(
-              leading: Icon(icon),
+              leading: icon,
               title: Text(label),
               subtitle: Text(shown),
               trailing: IconButton(
