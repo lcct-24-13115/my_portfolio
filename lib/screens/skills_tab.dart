@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../app_theme.dart';
 
-/// Third tab: technical skills, non-technical skills, certifications.
+/// Third tab: skills, then certifications & training.
+///
+/// Layout order: Technical skills, non-technical skills, then the
+/// "Certifications & Training" section (Cisco certificates on top,
+/// the MVConsultancy webinar series right below, other seminars last).
 class SkillsTab extends StatelessWidget {
   const SkillsTab({super.key});
 
@@ -80,18 +84,48 @@ class SkillsTab extends StatelessWidget {
     ),
   ];
 
-    // Format: (seminar / training, venue, date)
-  static const List<(String, String, String)> _training = [
+  // Format: (webinar number, title, tagline, date, image file)
+  // MVConsultancy - IT & Digital Skills Webinar Series 6.
+  static const List<(int, String, String, String, String)> _webinars = [
     (
-      'Data Analytics for Better Decisions',
-      'Manila, Phils.',
-      'October 15, 2026'
-    ),
-    (
+      2,
       'Cloud Tools for Productivity',
-      'Manila, Phils.',
-      'October 14, 2026'
+      'Work Smarter. Collaborate Anywhere.',
+      'October 14, 2026',
+      'assets/images/cert_webinar_2.jpg'
     ),
+    (
+      3,
+      'Data Analytics for Better Decisions',
+      'From Data to Insights to Action.',
+      'October 15, 2026',
+      'assets/images/cert_webinar_3.jpg'
+    ),
+    (
+      4,
+      'Cybersecurity Awareness in a Digital World',
+      'Protect Yourself. Protect Your Business.',
+      'October 16, 2026',
+      'assets/images/cert_webinar_4.jpg'
+    ),
+    (
+      5,
+      'Social Media Marketing That Works',
+      'Create. Engage. Convert.',
+      'October 17, 2026',
+      'assets/images/cert_webinar_5.jpg'
+    ),
+    (
+      6,
+      'Digital Career Opportunities & Freelancing',
+      'New Skills. Global Opportunities.',
+      'October 18, 2026',
+      'assets/images/cert_webinar_6.jpg'
+    ),
+  ];
+
+  // Format: (seminar / training, venue, date)
+  static const List<(String, String, String)> _training = [
     (
       'Financial Technology and AI Industry Seminar',
       'TP ICAP, Bonifacio Global City, Taguig',
@@ -141,6 +175,22 @@ class SkillsTab extends StatelessWidget {
     );
   }
 
+  /// Big heading that introduces the "Certifications & Training" section.
+  Widget _sectionHeading(BuildContext context, String text) {
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 12, 4, 12),
+      child: Row(
+        children: [
+          Icon(Icons.workspace_premium,
+              color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: 8),
+          Expanded(child: Text(text, style: textTheme.headlineSmall)),
+        ],
+      ),
+    );
+  }
+
   /// Opens the full certificate in a dialog. Pinch or scroll to zoom.
   void _openCertificate(BuildContext context, String title, String imagePath) {
     showDialog<void>(
@@ -177,9 +227,17 @@ class SkillsTab extends StatelessWidget {
     );
   }
 
-  /// Builds the certifications card. Each row shows a thumbnail of the
-  /// certificate; tapping it opens the full image.
-  Widget _certificationsSection(BuildContext context) {
+  /// Builds a card of certificate rows. Each row shows a thumbnail;
+  /// tapping it opens the full image.
+  ///
+  /// [rows] format: (title, details shown under the title, image file).
+  Widget _certificateCard(
+    BuildContext context, {
+    required String title,
+    String? subtitle,
+    required List<(String, String, String)> rows,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -188,28 +246,37 @@ class SkillsTab extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text('Certifications',
-                  style: Theme.of(context).textTheme.titleLarge),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: textTheme.titleLarge),
+                  if (subtitle != null) ...[
+                    const SizedBox(height: 4),
+                    Text(subtitle, style: textTheme.bodyMedium),
+                  ],
+                ],
+              ),
             ),
-            for (final (name, issuer, date, image) in _certifications)
+            const SizedBox(height: 4),
+            for (final (name, details, image) in rows)
               ListTile(
                 leading: ClipRRect(
                   borderRadius: BorderRadius.circular(6),
                   child: Image.asset(
                     image,
-                    width: 72,
+                    width: 80,
                     height: 56,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) =>
                         const SizedBox(
-                      width: 72,
+                      width: 80,
                       height: 56,
                       child: Icon(Icons.verified),
                     ),
                   ),
                 ),
                 title: Text(name),
-                subtitle: Text('$issuer\n$date'),
+                subtitle: Text(details),
                 isThreeLine: true,
                 trailing: const Icon(Icons.zoom_in),
                 onTap: () => _openCertificate(context, name, image),
@@ -220,7 +287,7 @@ class SkillsTab extends StatelessWidget {
     );
   }
 
-  /// Builds a card with a title and a list of (title, detail, date) rows.
+  /// Builds a plain card with a title and (title, venue, date) rows.
   Widget _listSection(BuildContext context, String title, IconData icon,
       List<(String, String, String)> rows) {
     return Card(
@@ -231,8 +298,8 @@ class SkillsTab extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(title,
-                  style: Theme.of(context).textTheme.titleLarge),
+              child:
+                  Text(title, style: Theme.of(context).textTheme.titleLarge),
             ),
             for (final (name, detail, date) in rows)
               ListTile(
@@ -254,9 +321,30 @@ class SkillsTab extends StatelessWidget {
       children: [
         _chipSection(context, 'Technical Skills', _technical),
         _chipSection(context, 'Non-Technical Skills', _nonTechnical),
-        _certificationsSection(context),
-        _listSection(context, 'Seminars & Training',
-            Icons.workspace_premium, _training),
+        _sectionHeading(context, 'Certifications & Training'),
+        // 1) Cisco certifications with their certificate images (top).
+        _certificateCard(
+          context,
+          title: 'Cisco Certifications',
+          subtitle: 'Cisco Networking Academy',
+          rows: [
+            for (final (name, issuer, date, image) in _certifications)
+              (name, '$issuer\n$date', image),
+          ],
+        ),
+        // 2) Webinar series, right below the Cisco certifications.
+        _certificateCard(
+          context,
+          title: 'IT & Digital Skills Webinar Series 6',
+          subtitle: 'MVConsultancy  |  Google Meet  |  Oct 13-18, 2026',
+          rows: [
+            for (final (number, name, tagline, date, image) in _webinars)
+              ('Webinar #$number: $name', '$tagline\n$date', image),
+          ],
+        ),
+        // 3) Other seminars and trainings.
+        _listSection(context, 'Other Seminars & Training',
+            Icons.school, _training),
       ],
     );
   }
