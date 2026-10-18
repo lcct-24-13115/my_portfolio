@@ -44,112 +44,99 @@ class SkillsTab extends StatelessWidget {
       'JavaScript Essentials 1',
       'Cisco Networking Academy with OpenEDG JavaScript Institute',
       'September 28, 2026',
-      'assets/images/cert_js_essentials_1.jpg'
+      'assets/images/cert_js_essentials_1.jpg',
     ),
     (
       'HTML Essentials',
       'Cisco Networking Academy with JS Institute',
       'August 11, 2026',
-      'assets/images/cert_html_essentials.jpg'
+      'assets/images/cert_html_essentials.jpg',
     ),
     (
       'Network Technician Career Path',
       'Cisco Networking Academy',
       'April 22, 2026',
-      'assets/images/cert_network_technician.jpg'
+      'assets/images/cert_network_technician.jpg',
     ),
     (
       'Network Support and Security',
       'Cisco Networking Academy',
       'April 20, 2026',
-      'assets/images/cert_network_support_security.jpg'
+      'assets/images/cert_network_support_security.jpg',
     ),
     (
       'Network Addressing and Basic Troubleshooting',
       'Cisco Networking Academy',
       'April 20, 2026',
-      'assets/images/cert_network_addressing.jpg'
+      'assets/images/cert_network_addressing.jpg',
     ),
     (
       'Networking Devices and Basic Configuration',
       'Cisco Networking Academy',
       'April 8, 2026',
-      'assets/images/cert_networking_devices.jpg'
+      'assets/images/cert_networking_devices.jpg',
     ),
     (
       'Networking Basics',
       'Cisco Networking Academy',
       'April 7, 2026',
-      'assets/images/cert_networking_basics.jpg'
+      'assets/images/cert_networking_basics.jpg',
     ),
   ];
 
-  // Format: (webinar number, title, tagline, date, image file)
+  // Format: (webinar title, location, date, image file)
   // MVConsultancy - IT & Digital Skills Webinar Series 6.
-  static const List<(int, String, String, String, String)> _webinars = [
+  static const List<(String, String, String, String)> _webinars = [
     (
-      2,
       'Cloud Tools for Productivity',
-      'Work Smarter. Collaborate Anywhere.',
+      'Manila, Phils.',
       'October 14, 2026',
-      'assets/images/cert_webinar_2.jpg'
+      'assets/images/cert_webinar_2.jpg',
     ),
     (
-      3,
       'Data Analytics for Better Decisions',
-      'From Data to Insights to Action.',
+      'Manila, Phils.',
       'October 15, 2026',
-      'assets/images/cert_webinar_3.jpg'
+      'assets/images/cert_webinar_3.jpg',
     ),
     (
-      4,
       'Cybersecurity Awareness in a Digital World',
-      'Protect Yourself. Protect Your Business.',
+      'Manila, Phils.',
       'October 16, 2026',
-      'assets/images/cert_webinar_4.jpg'
+      'assets/images/cert_webinar_4.jpg',
     ),
     (
-      5,
       'Social Media Marketing That Works',
-      'Create. Engage. Convert.',
+      'Manila, Phils.',
       'October 17, 2026',
-      'assets/images/cert_webinar_5.jpg'
+      'assets/images/cert_webinar_5.jpg',
     ),
     (
-      6,
       'Digital Career Opportunities & Freelancing',
-      'New Skills. Global Opportunities.',
+      'Manila, Phils.',
       'October 18, 2026',
-      'assets/images/cert_webinar_6.jpg'
+      'assets/images/cert_webinar_6.jpg',
     ),
   ];
 
-  // Format: (seminar / training, venue, date)
-  static const List<(String, String, String)> _training = [
+  // Format: (seminar / training, venue and date, image file or null)
+  // Newest first. Rows with an image can be tapped to view the certificate.
+  static const List<(String, String, String?)> _training = [
     (
-      'Financial Technology and AI Industry Seminar',
-      'TP ICAP, Bonifacio Global City, Taguig',
-      'March 23, 2026'
+      'BSIT Educational Exposure Trip during IT Week 2026',
+      'Bonifacio Global City, Metro Manila\nMarch 23, 2026',
+      'assets/images/cert_exposure_trip.jpg',
     ),
     (
-      'Machine Learning and Software Development Seminar',
-      'La Consolacion College Tanauan',
-      'March 18-19, 2026'
+      'Bridging Business and Technology for the Next Generation',
+      'La Consolacion College Tanauan\nMarch 21, 2026',
+      'assets/images/cert_bridging_business_tech.jpg',
     ),
     (
-      '2-Day Technical Training: Robotics / Programming / Hackathon',
-      'La Consolacion College Tanauan',
-      'March 18-19, 2026'
-    ),
-    (
-      'Batangas Information Technology Conference (BITCON)',
-      'Lipa City, Batangas',
-      'April 25, 2025'
-    ),
-    (
-      'Intel Seminar: Navigating the AI Frontier',
-      'La Consolacion College Tanauan',
-      'March 25, 2025'
+      'Batangas Information Technology Conference (BITCON) 2025',
+      'Lipa Academy for Sports, Culture and Arts Convention Center, '
+          'Dagatan, Lipa City\nApril 26, 2025',
+      'assets/images/cert_bitcon_2025.jpg',
     ),
   ];
 
@@ -182,8 +169,10 @@ class SkillsTab extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(4, 12, 4, 12),
       child: Row(
         children: [
-          Icon(Icons.workspace_premium,
-              color: Theme.of(context).colorScheme.primary),
+          Icon(
+            Icons.workspace_premium,
+            color: Theme.of(context).colorScheme.primary,
+          ),
           const SizedBox(width: 8),
           Expanded(child: Text(text, style: textTheme.headlineSmall)),
         ],
@@ -231,11 +220,12 @@ class SkillsTab extends StatelessWidget {
   /// tapping it opens the full image.
   ///
   /// [rows] format: (title, details shown under the title, image file).
+  /// A row with a null image shows a plain icon and is not tappable.
   Widget _certificateCard(
     BuildContext context, {
-    required String title,
+    String? title,
     String? subtitle,
-    required List<(String, String, String)> rows,
+    required List<(String, String, String?)> rows,
   }) {
     final textTheme = Theme.of(context).textTheme;
     return Card(
@@ -244,69 +234,52 @@ class SkillsTab extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: textTheme.titleLarge),
-                  if (subtitle != null) ...[
-                    const SizedBox(height: 4),
-                    Text(subtitle, style: textTheme.bodyMedium),
+            // The header is skipped when a card has no title (webinars).
+            if (title != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: textTheme.titleLarge),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 4),
+                      Text(subtitle, style: textTheme.bodyMedium),
+                    ],
                   ],
-                ],
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
+            if (title != null) const SizedBox(height: 4),
             for (final (name, details, image) in rows)
               ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: Image.asset(
-                    image,
-                    width: 80,
-                    height: 56,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const SizedBox(
-                      width: 80,
-                      height: 56,
-                      child: Icon(Icons.verified),
-                    ),
-                  ),
-                ),
+                leading: image == null
+                    ? const SizedBox(
+                        width: 80,
+                        height: 56,
+                        child: Icon(Icons.school),
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: Image.asset(
+                          image,
+                          width: 80,
+                          height: 56,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const SizedBox(
+                                width: 80,
+                                height: 56,
+                                child: Icon(Icons.verified),
+                              ),
+                        ),
+                      ),
                 title: Text(name),
                 subtitle: Text(details),
                 isThreeLine: true,
-                trailing: const Icon(Icons.zoom_in),
-                onTap: () => _openCertificate(context, name, image),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// Builds a plain card with a title and (title, venue, date) rows.
-  Widget _listSection(BuildContext context, String title, IconData icon,
-      List<(String, String, String)> rows) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child:
-                  Text(title, style: Theme.of(context).textTheme.titleLarge),
-            ),
-            for (final (name, detail, date) in rows)
-              ListTile(
-                leading: Icon(icon),
-                title: Text(name),
-                subtitle: Text('$detail\n$date'),
-                isThreeLine: true,
+                trailing: image == null ? null : const Icon(Icons.zoom_in),
+                onTap: image == null
+                    ? null
+                    : () => _openCertificate(context, name, image),
               ),
           ],
         ),
@@ -332,19 +305,20 @@ class SkillsTab extends StatelessWidget {
               (name, '$issuer\n$date', image),
           ],
         ),
-        // 2) Webinar series, right below the Cisco certifications.
+        // 2) Webinars, right below the Cisco certifications (no card title).
         _certificateCard(
           context,
-          title: 'IT & Digital Skills Webinar Series 6',
-          subtitle: 'MVConsultancy  |  Google Meet  |  Oct 13-18, 2026',
           rows: [
-            for (final (number, name, tagline, date, image) in _webinars)
-              ('Webinar #$number: $name', '$tagline\n$date', image),
+            for (final (name, location, date, image) in _webinars)
+              (name, '$location\n$date', image),
           ],
         ),
         // 3) Other seminars and trainings.
-        _listSection(context, 'Other Seminars & Training',
-            Icons.school, _training),
+        _certificateCard(
+          context,
+          title: 'Other Seminars & Training',
+          rows: _training,
+        ),
       ],
     );
   }

@@ -1,11 +1,11 @@
 {
-    "name": "my_portfolio",
-    "short_name": "my_portfolio",
+    "name": "Julia Cassandra Alemania Portfolio",
+    "short_name": "My Portfolio",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Portfolio of Julia Cassandra U. Alemania.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

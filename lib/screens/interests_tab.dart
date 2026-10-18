@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../app_theme.dart';
 
-/// Fourth tab: professional interests, specializations, notable projects.
+/// Fourth tab: professional interests, specializations, notable projects,
+/// and the awards received.
 class InterestsTab extends StatelessWidget {
   const InterestsTab({super.key});
 
@@ -28,9 +29,10 @@ class InterestsTab extends StatelessWidget {
     ),
     (
       Icons.psychology,
-      'AI, Machine Learning & Data Analytics',
-      'Attending seminars on machine learning, AI in industry, and data '
-          'analytics to learn how data supports better decisions.',
+      'Data Analytics & Emerging Technologies',
+      'Attending webinars and seminars on data analytics, cybersecurity, '
+          'and cloud tools to learn how technology supports better '
+          'decisions.',
     ),
     (
       Icons.science,
@@ -48,14 +50,79 @@ class InterestsTab extends StatelessWidget {
       'Notable Projects',
       'Tom and Jerry game (Flutter) and this Portfolio app (Flutter).',
     ),
-    (
-      Icons.emoji_events,
-      'Achievements',
-      'Dean\'s Lister, La Consolacion College Tanauan (2025). Second '
-          'Runner-Up, Organizational Performance (2024). Leadership '
-          'Awardee, Immaculate Heart of Mary College (2021-2023).',
-    ),
   ];
+
+  // Format: (award, school / organizer, year)
+  // Newest first.
+  static const List<(String, String, String)> _awards = [
+    ('Dean\'s Lister Recipient', 'La Consolacion College Tanauan', '2025'),
+    (
+      'Champion in LCCTanauan Graphic Design Contest',
+      'La Consolacion College Tanauan',
+      '2024',
+    ),
+    (
+      'Second Runner-Up in Organizational Performance (Group Competition)',
+      'La Consolacion College Tanauan',
+      '2024',
+    ),
+    ('Best in Work Immersion', 'Immaculate Heart of Mary College Inc.', '2023'),
+    (
+      'Research Excellence Awardee',
+      'Immaculate Heart of Mary College Inc.',
+      '2023',
+    ),
+    (
+      'Leadership Awardee',
+      'Immaculate Heart of Mary College Inc.',
+      '2021 - 2023',
+    ),
+    (
+      'Academic Awardee',
+      'Immaculate Heart of Mary College Inc.',
+      '2021 - 2023',
+    ),
+    (
+      'Second Place in Sports Journalism',
+      'Elementary Schools Division of San Juan City, Metro Manila',
+      '2020',
+    ),
+    ('Academic Awardee', 'San Juan City Integrated High School', '2016 - 2021'),
+    (
+      'Champion in Poster Making Contest',
+      'San Juan City Integrated School',
+      '2013',
+    ),
+    ('Academic Awardee', 'San Juan City Integrated School', '2010 - 2016'),
+  ];
+
+  /// Card listing every award with its school and year.
+  Widget _awardsCard(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Awards & Recognitions',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            for (final (award, from, year) in _awards)
+              ListTile(
+                leading: const Icon(Icons.emoji_events),
+                title: Text(award),
+                subtitle: Text('$from\n$year'),
+                isThreeLine: true,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +138,7 @@ class InterestsTab extends StatelessWidget {
               isThreeLine: true,
             ),
           ),
+        _awardsCard(context),
       ],
     );
   }
