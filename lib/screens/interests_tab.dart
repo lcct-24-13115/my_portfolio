@@ -64,6 +64,11 @@ class InterestsTab extends StatelessWidget {
           'room with a QR code or room code. Has player accounts, a '
           'leaderboard, and light/dark themes.',
       technologies: ['Flutter', 'Dart', 'Multiplayer', 'Firebase Hosting'],
+      highlights: [
+        'Solo mode against an AI with three difficulty levels',
+        'Online rooms joined with a QR code or room code',
+        'Player accounts with a leaderboard',
+      ],
       screenshot: 'assets/images/project_tom_and_jerry.png',
       githubUrl: 'https://github.com/lcct-24-13115/tom_and_jerry_new',
       liveUrl: 'https://tom-jerry-multiplayer.web.app/',
@@ -110,18 +115,114 @@ class InterestsTab extends StatelessWidget {
           'requests for materials or equipment, and each ticket moves '
           'through role-based approvals up to the school president.',
       technologies: ['Laravel', 'PHP', 'MySQL', 'Blade'],
+      highlights: [
+        'Three request forms: facilities, requisition, and repairs',
+        'Separate dashboards for requester, maintenance, finance, '
+            'custodian, and president',
+        'Maintenance board with New, Doing, and Done columns',
+        'Advance-notice rules and in-app alerts with sound',
+      ],
       screenshot: 'assets/images/project_school_maintenance.png',
       githubUrl: 'https://github.com/lcct-24-13115/school-maintenance-system',
       isPrivate: true,
+      gallery: [
+        GalleryImage(
+          title: 'Login with role selection',
+          image: 'assets/images/project_maint_01_login.jpg',
+        ),
+        GalleryImage(
+          title: 'Form 1: Facilities & equipment',
+          image: 'assets/images/project_maint_02_facilities_form.jpg',
+        ),
+        GalleryImage(
+          title: 'Form 2: Requisition slip',
+          image: 'assets/images/project_maint_03_requisition_slip.jpg',
+        ),
+        GalleryImage(
+          title: 'Form 3: Repairs & improvement',
+          image: 'assets/images/project_maint_04_repairs_form.jpg',
+        ),
+        GalleryImage(
+          title: 'Maintenance task board',
+          image: 'assets/images/project_maint_05_maintenance_board.jpg',
+        ),
+        GalleryImage(
+          title: 'Finance dashboard',
+          image: 'assets/images/project_maint_06_finance_dashboard.jpg',
+        ),
+        GalleryImage(
+          title: 'Property custodian dashboard',
+          image: 'assets/images/project_maint_07_custodian_dashboard.jpg',
+        ),
+        GalleryImage(
+          title: 'School president dashboard',
+          image: 'assets/images/project_maint_08_president_dashboard.jpg',
+        ),
+      ],
     ),
     _Project(
       title: 'Integrated Library Management System',
       description:
           'A library system for book loans and returns, patron profiles, '
-          'reservations, attendance logging, and borrowing history reports.',
+          'reservations, attendance logging, borrowing history reports, '
+          'and staff accounts with roles.',
       technologies: ['Laravel', 'PHP', 'Blade', 'Tailwind CSS'],
+      highlights: [
+        'Issue and return books by scanning the patron ID and accession '
+            'number',
+        'Attendance logging with a visitors-per-hour chart',
+        'Printable reports: loan history, overdue list, circulation '
+            'summary, and shelf list',
+        'Book reservations and patron profiles',
+      ],
       screenshot: 'assets/images/project_library_system.png',
       githubUrl: 'https://github.com/lcct-24-13115/library-system',
+      gallery: [
+        GalleryImage(
+          title: 'Staff login',
+          image: 'assets/images/project_lib_01_login.jpg',
+        ),
+        GalleryImage(
+          title: 'Dashboard',
+          image: 'assets/images/project_lib_02_dashboard.jpg',
+        ),
+        GalleryImage(
+          title: 'Book catalog',
+          image: 'assets/images/project_lib_03_books.jpg',
+        ),
+        GalleryImage(
+          title: 'Patrons',
+          image: 'assets/images/project_lib_04_patrons.jpg',
+        ),
+        GalleryImage(
+          title: 'Issue book',
+          image: 'assets/images/project_lib_05_issue_book.jpg',
+        ),
+        GalleryImage(
+          title: 'Return book',
+          image: 'assets/images/project_lib_06_return_book.jpg',
+        ),
+        GalleryImage(
+          title: 'Loans (circulation)',
+          image: 'assets/images/project_lib_07_loans.jpg',
+        ),
+        GalleryImage(
+          title: 'Reservations',
+          image: 'assets/images/project_lib_08_reservations.jpg',
+        ),
+        GalleryImage(
+          title: 'Attendance logging',
+          image: 'assets/images/project_lib_09_attendance.jpg',
+        ),
+        GalleryImage(
+          title: 'Reports',
+          image: 'assets/images/project_lib_10_reports.jpg',
+        ),
+        GalleryImage(
+          title: 'Add new user',
+          image: 'assets/images/project_lib_11_add_user.jpg',
+        ),
+      ],
     ),
     _Project(
       title: 'My Portfolio App',
@@ -129,6 +230,11 @@ class InterestsTab extends StatelessWidget {
           'This app: a five-tab portfolio with a light/dark theme, '
           'certificate gallery, and automatic deployment to GitHub Pages.',
       technologies: ['Flutter', 'Dart', 'Material 3', 'GitHub Actions'],
+      highlights: [
+        'Light and dark mode that remembers your choice',
+        'Certificate gallery with filters, swipe, and zoom',
+        'Checked by analysis and tests, then deployed automatically',
+      ],
       screenshot: 'assets/images/project_portfolio.png',
       githubUrl: 'https://github.com/lcct-24-13115/my_portfolio',
       liveUrl: 'https://lcct-24-13115.github.io/my_portfolio/',
@@ -262,6 +368,9 @@ class _Project {
     this.liveUrl,
     this.isPrivate = false,
     this.gallery = const [],
+    // ignore: unused_element_parameter
+    this.role,
+    this.highlights = const [],
   });
 
   final String title;
@@ -282,6 +391,13 @@ class _Project {
   /// Extra screenshots. When not empty, the first one replaces the banner
   /// and tapping the card picture opens a swipeable gallery.
   final List<GalleryImage> gallery;
+
+  /// Optional one-line description of what I did on the project, shown as
+  /// "My role: ...". Leave it null to hide the line.
+  final String? role;
+
+  /// Short bullet points listing the main features.
+  final List<String> highlights;
 }
 
 /// Card with a screenshot, description, technology chips, and link buttons.
@@ -314,6 +430,7 @@ class _ProjectCard extends StatelessWidget {
       aspectRatio: 16 / 9,
       child: Image.asset(
         shots.isEmpty ? project.screenshot : shots.first.image,
+        semanticLabel: '${project.title} screenshot',
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) => _placeholder(),
       ),
@@ -339,10 +456,58 @@ class _ProjectCard extends StatelessWidget {
     );
   }
 
+  /// "My role" line, shown only when the project has a role.
+  Widget _role(BuildContext context, String role) {
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: 'My role: ',
+              style: textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            TextSpan(text: role, style: textTheme.bodyMedium),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Key features as a short checklist.
+  Widget _highlights(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final item in project.highlights)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.check_circle, size: 18, color: scheme.primary),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(item, style: textTheme.bodyMedium)),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final liveUrl = project.liveUrl;
+    final role = project.role;
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -358,6 +523,8 @@ class _ProjectCard extends StatelessWidget {
                 Text(project.title, style: textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text(project.description, style: textTheme.bodyMedium),
+                if (role != null) _role(context, role),
+                if (project.highlights.isNotEmpty) _highlights(context),
                 const SizedBox(height: 12),
                 Wrap(
                   spacing: 8,

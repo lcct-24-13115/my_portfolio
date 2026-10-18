@@ -94,11 +94,82 @@ void main() {
     await tester.tap(find.text('Interests'));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('8 screenshots'));
+    // Tom and Jerry and the Maintenance system both have 8 screenshots,
+    // so take the first chip (Tom and Jerry is listed first).
+    await tester.tap(find.text('8 screenshots').first);
     await tester.pumpAndSettle();
 
     // The gallery opens on the first screenshot.
     expect(find.text('Splash screen'), findsOneWidget);
     expect(find.text('1 of 8'), findsOneWidget);
+  });
+
+  testWidgets('Library system card opens its screenshot gallery', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(900, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const PortfolioApp());
+
+    await tester.tap(find.text('Interests'));
+    await tester.pumpAndSettle();
+
+    // Only the library project has 11 screenshots.
+    await tester.tap(find.text('11 screenshots'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Staff login'), findsOneWidget);
+    expect(find.text('1 of 11'), findsOneWidget);
+  });
+
+  testWidgets('Personal tab has a Download CV button', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const PortfolioApp());
+
+    expect(find.text('Download CV'), findsOneWidget);
+  });
+
+  testWidgets('Skills tab groups the technical skills', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(900, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const PortfolioApp());
+
+    await tester.tap(find.text('Skills'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Programming'), findsOneWidget);
+    expect(find.text('Web Development'), findsOneWidget);
+    expect(find.text('Networking & Cisco'), findsOneWidget);
+    expect(find.text('IT Support & Tools'), findsOneWidget);
+    expect(find.text('Flutter & Dart'), findsOneWidget);
+  });
+
+  testWidgets('Project cards list their key features', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(900, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const PortfolioApp());
+
+    await tester.tap(find.text('Interests'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Player accounts with a leaderboard'), findsOneWidget);
+    expect(
+      find.text('Attendance logging with a visitors-per-hour chart'),
+      findsOneWidget,
+    );
   });
 }

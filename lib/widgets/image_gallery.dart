@@ -139,7 +139,9 @@ class _ImageGalleryState extends State<_ImageGallery> {
                         child: _ArrowButton(
                           icon: Icons.chevron_left,
                           tooltip: 'Previous image',
-                          onPressed: _index > 0 ? () => _goTo(_index - 1) : null,
+                          onPressed: _index > 0
+                              ? () => _goTo(_index - 1)
+                              : null,
                         ),
                       ),
                       Align(

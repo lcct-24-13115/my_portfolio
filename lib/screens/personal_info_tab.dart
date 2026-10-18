@@ -69,6 +69,7 @@ class PersonalInfoTab extends StatelessWidget {
               child: ClipOval(
                 child: Image.asset(
                   'assets/images/profile.jpg',
+                  semanticLabel: 'Photo of Julia Cassandra Alemania',
                   width: 136,
                   height: 136,
                   fit: BoxFit.cover,
@@ -122,6 +123,17 @@ class PersonalInfoTab extends StatelessWidget {
                       foregroundColor: Colors.white,
                     ),
                   ),
+              // Solid white button so the CV stands out from the quick links.
+              FilledButton.icon(
+                onPressed: () =>
+                    openLink(context, label: 'CV', shown: cvUrl, link: cvUrl),
+                icon: const Icon(Icons.download, size: 18),
+                label: const Text('Download CV'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: AppTheme.headerGradient.last,
+                ),
+              ),
             ],
           ),
         ],

@@ -21,22 +21,31 @@ class _SkillsTabState extends State<SkillsTab> {
   /// Selected filter chip. Null means "All".
   CertCategory? _filter;
 
-  static const List<String> _technical = [
-    'Python',
-    'Java',
-    'C',
-    'C++',
-    'HTML',
-    'CSS',
-    'JavaScript',
-    'Flutter & Dart',
-    'Version Control (Git)',
-    'Computer Networking',
-    'IPv4 / IPv6 Addressing',
-    'Cisco IOS',
-    'Network Troubleshooting',
-    'OS Installation',
-    'Computer Maintenance & Troubleshooting',
+  // Technical skills grouped by area so they are easier to scan.
+  // Format: (group name, skills in that group)
+  static const List<(String, List<String>)> _technicalGroups = [
+    ('Programming', ['Python', 'Java', 'C', 'C++', 'Flutter & Dart']),
+    (
+      'Web Development',
+      ['HTML', 'CSS', 'JavaScript', 'PHP', 'Laravel', 'MySQL'],
+    ),
+    (
+      'Networking & Cisco',
+      [
+        'Computer Networking',
+        'IPv4 / IPv6 Addressing',
+        'Cisco IOS',
+        'Network Troubleshooting',
+      ],
+    ),
+    (
+      'IT Support & Tools',
+      [
+        'Version Control (Git)',
+        'OS Installation',
+        'Computer Maintenance & Troubleshooting',
+      ],
+    ),
   ];
 
   static const List<String> _nonTechnical = [
@@ -64,6 +73,41 @@ class _SkillsTabState extends State<SkillsTab> {
               runSpacing: 8,
               children: [for (final s in items) Chip(label: Text(s))],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// One card with a title and several named groups of chips.
+  Widget _groupedSection(
+    BuildContext context,
+    String title,
+    List<(String, List<String>)> groups,
+  ) {
+    final textTheme = Theme.of(context).textTheme;
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: textTheme.titleLarge),
+            for (final (name, skills) in groups) ...[
+              const SizedBox(height: 16),
+              Text(
+                name,
+                style: textTheme.titleSmall?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [for (final s in skills) Chip(label: Text(s))],
+              ),
+            ],
           ],
         ),
       ),
@@ -153,6 +197,7 @@ class _SkillsTabState extends State<SkillsTab> {
                   borderRadius: BorderRadius.circular(6),
                   child: Image.asset(
                     items[i].image,
+                    semanticLabel: items[i].title,
                     width: 80,
                     height: 56,
                     fit: BoxFit.cover,
@@ -193,7 +238,7 @@ class _SkillsTabState extends State<SkillsTab> {
 
     return ContentList(
       children: [
-        _chipSection(context, 'Technical Skills', _technical),
+        _groupedSection(context, 'Technical Skills', _technicalGroups),
         _chipSection(context, 'Non-Technical Skills', _nonTechnical),
         _sectionHeading(context, 'Certifications & Training'),
         _filterChips(),

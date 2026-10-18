@@ -1,5 +1,19 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+/// File name of the one-page CV kept in the web/ folder. It is copied to the
+/// root of the website when the app is built. The public copy leaves out the
+/// references page on purpose, so other people's phone numbers stay private.
+const String cvFileName = 'Julia_Alemania_CV.pdf';
+
+/// Address of the live site, used by the mobile and desktop builds.
+const String _liveSite = 'https://lcct-24-13115.github.io/my_portfolio/';
+
+/// Link to the CV. On the web it is resolved from the page address, so it
+/// works on GitHub Pages and on localhost. Other platforms use the live site.
+String get cvUrl =>
+    kIsWeb ? Uri.base.resolve(cvFileName).toString() : '$_liveSite$cvFileName';
 
 /// Contact details shared by the Personal and Contact tabs, so they are
 /// written (and updated) in one place only.

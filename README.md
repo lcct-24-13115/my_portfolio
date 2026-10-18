@@ -9,13 +9,15 @@ La Consolacion College Tanauan).
 ## Features
 
 - Five tabs built with `TabBar` and `TabBarView`, each with a Material icon:
-  - **Personal**: photo, name, age, bio, career objective, personal details, and
-    quick contact buttons
+  - **Personal**: photo, name, age, bio, career objective, personal details,
+    quick contact buttons, and a **Download CV** button
   - **Education**: schools in reverse chronological order, with honors
-  - **Skills**: technical and non-technical skills, plus certifications and
+  - **Skills**: technical skills grouped by area (programming, web,
+    networking, IT support), non-technical skills, plus certifications and
     training (Cisco Networking Academy, webinars, seminars). Tap a
     certificate thumbnail to view and zoom the full image.
-  - **Interests**: specializations, notable projects, and awards
+  - **Interests**: specializations, notable projects (with key features and
+    screenshot galleries), and awards
   - **Contact**: email, phone, Facebook, Instagram, TikTok, LinkedIn,
     GitHub, and home address (opens in Google Maps). Tap a row to open it,
     or the copy button to copy it.
@@ -26,8 +28,9 @@ La Consolacion College Tanauan).
   laptops, and uses the full width on phones.
 - Certificate gallery: filter chips (All, Networking, Web, Webinars &
   Seminars) and a viewer you can swipe, zoom, or browse with the arrow keys.
-- Projects showcase in the Interests tab, vertical education timeline, and
-  light fade-in animations.
+- Projects showcase in the Interests tab, with swipeable screenshot galleries
+  for Tom and Jerry, the Maintenance Ticketing System, and the Library
+  System, plus a vertical education timeline and light fade-in animations.
 - Link preview image and initials icon, so a shared link shows a name and
   photo instead of a blank card.
 
@@ -53,6 +56,8 @@ lib/
   screens/               one file per tab
   widgets/               shared widgets (centered animated list, gallery)
 assets/images/           profile photo, certificate and project images
+web/Julia_Alemania_CV.pdf  one-page CV used by the Download CV button
+                         (references page left out for privacy)
 assets/fonts/            Poppins font files
 docs/screenshots/        README screenshots
 test/widget_test.dart    widget tests
