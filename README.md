@@ -56,8 +56,8 @@ lib/
   screens/               one file per tab
   widgets/               shared widgets (centered animated list, gallery)
 assets/images/           profile photo, certificate and project images
-web/Julia_Alemania_CV.pdf  one-page CV used by the Download CV button
-                         (references page left out for privacy)
+web/Julia_Alemania_CV.pdf  CV used by the Download CV button
+                         (references list left out for privacy)
 assets/fonts/            Poppins font files
 docs/screenshots/        README screenshots
 test/widget_test.dart    widget tests
