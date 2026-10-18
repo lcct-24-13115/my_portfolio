@@ -85,7 +85,12 @@ class HomePage extends StatelessWidget {
       length: 5, // Must equal the number of tabs AND the number of views.
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('My Portfolio'),
+          // FittedBox shrinks the name a little on narrow phones instead of
+          // cutting it off.
+          title: const FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text('Julia Cassandra Alemania'),
+          ),
           actions: [
             IconButton(
               tooltip: isDark ? 'Switch to light mode' : 'Switch to dark mode',

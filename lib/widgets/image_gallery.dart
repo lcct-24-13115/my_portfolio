@@ -60,14 +60,43 @@ class _ImageGalleryState extends State<_ImageGallery> {
   );
   late int _index = widget.startIndex;
 
+  // Thumbnail strip below the picture.
+  static const double _thumbWidth = 72;
+  static const double _thumbHeight = 48;
+  static const double _thumbGap = 8;
+  final ScrollController _stripController = ScrollController();
+
   /// While an image is zoomed in, dragging pans the image instead of
   /// changing the page.
   bool _zoomed = false;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _scrollStripTo(widget.startIndex),
+    );
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
+    _stripController.dispose();
     super.dispose();
+  }
+
+  /// Keeps the selected thumbnail centered in the strip.
+  void _scrollStripTo(int page) {
+    if (!_stripController.hasClients) return;
+    final position = _stripController.position;
+    final target =
+        page * (_thumbWidth + _thumbGap) -
+        (position.viewportDimension - _thumbWidth) / 2;
+    _stripController.animateTo(
+      target.clamp(0.0, position.maxScrollExtent),
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOutCubic,
+    );
   }
 
   void _goTo(int page) {
@@ -76,6 +105,58 @@ class _ImageGalleryState extends State<_ImageGallery> {
       page,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutCubic,
+    );
+  }
+
+  /// Row of small previews. Tapping one jumps straight to that picture.
+  Widget _thumbnailStrip(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return SizedBox(
+      height: _thumbHeight + 12,
+      child: ListView.separated(
+        controller: _stripController,
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        itemCount: widget.images.length,
+        separatorBuilder: (context, i) => const SizedBox(width: _thumbGap),
+        itemBuilder: (context, i) {
+          final selected = i == _index;
+          return Semantics(
+            button: true,
+            selected: selected,
+            label: 'Show ${widget.images[i].title}',
+            child: InkWell(
+              borderRadius: BorderRadius.circular(6),
+              onTap: () => _goTo(i),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                width: _thumbWidth,
+                height: _thumbHeight,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
+                    color: selected ? scheme.primary : Colors.transparent,
+                    width: 2,
+                  ),
+                ),
+                child: Opacity(
+                  opacity: selected ? 1 : 0.6,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Image.asset(
+                      widget.images[i].image,
+                      fit: BoxFit.cover,
+                      cacheWidth: 160,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const ColoredBox(color: Colors.black12),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -121,10 +202,13 @@ class _ImageGalleryState extends State<_ImageGallery> {
                         physics: _zoomed
                             ? const NeverScrollableScrollPhysics()
                             : const PageScrollPhysics(),
-                        onPageChanged: (page) => setState(() {
-                          _index = page;
-                          _zoomed = false;
-                        }),
+                        onPageChanged: (page) {
+                          setState(() {
+                            _index = page;
+                            _zoomed = false;
+                          });
+                          _scrollStripTo(page);
+                        },
                         itemBuilder: (context, i) => _ZoomableImage(
                           imagePath: widget.images[i].image,
                           onZoomChanged: (zoomed) {
@@ -157,10 +241,11 @@ class _ImageGalleryState extends State<_ImageGallery> {
                     ],
                   ),
                 ),
+                if (total > 1) _thumbnailStrip(context),
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Text(
-                    'Swipe or use the arrows to browse. Pinch to zoom.',
+                    'Swipe, use the arrows, or tap a thumbnail. Pinch to zoom.',
                     style: textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),

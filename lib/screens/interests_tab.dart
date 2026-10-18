@@ -69,10 +69,13 @@ class InterestsTab extends StatelessWidget {
         'Online rooms joined with a QR code or room code',
         'Player accounts with a leaderboard',
       ],
+      meta: '2026 · Class project',
+      role:
+          'Solo developer. I designed and built the whole game myself, '
+          'from the maze and AI to the online rooms.',
       screenshot: 'assets/images/project_tom_and_jerry.png',
       githubUrl: 'https://github.com/lcct-24-13115/tom_and_jerry_new',
       liveUrl: 'https://tom-jerry-multiplayer.web.app/',
-      isPrivate: true,
       gallery: [
         GalleryImage(
           title: 'Splash screen',
@@ -122,9 +125,12 @@ class InterestsTab extends StatelessWidget {
         'Maintenance board with New, Doing, and Done columns',
         'Advance-notice rules and in-app alerts with sound',
       ],
+      meta: '2026 · Class project',
+      role:
+          'Solo developer. I built the whole system myself, including the '
+          'forms, role dashboards, and approval flow.',
       screenshot: 'assets/images/project_school_maintenance.png',
       githubUrl: 'https://github.com/lcct-24-13115/school-maintenance-system',
-      isPrivate: true,
       gallery: [
         GalleryImage(
           title: 'Login with role selection',
@@ -175,6 +181,10 @@ class InterestsTab extends StatelessWidget {
             'summary, and shelf list',
         'Book reservations and patron profiles',
       ],
+      meta: '2026 · Class project',
+      role:
+          'Solo developer. I built the whole system myself, from the '
+          'database to the reports.',
       screenshot: 'assets/images/project_library_system.png',
       githubUrl: 'https://github.com/lcct-24-13115/library-system',
       gallery: [
@@ -235,10 +245,39 @@ class InterestsTab extends StatelessWidget {
         'Certificate gallery with filters, swipe, and zoom',
         'Checked by analysis and tests, then deployed automatically',
       ],
+      meta: '2026 · Class project',
+      role:
+          'Solo developer. I designed, coded, and deployed this app '
+          'myself.',
       screenshot: 'assets/images/project_portfolio.png',
       githubUrl: 'https://github.com/lcct-24-13115/my_portfolio',
       liveUrl: 'https://lcct-24-13115.github.io/my_portfolio/',
-      isPrivate: true,
+      gallery: [
+        GalleryImage(
+          title: 'Overview (Android, dark mode)',
+          image: 'assets/images/project_pf_00_overview.jpg',
+        ),
+        GalleryImage(
+          title: 'Personal tab',
+          image: 'assets/images/project_pf_01_personal.png',
+        ),
+        GalleryImage(
+          title: 'Education tab',
+          image: 'assets/images/project_pf_02_education.png',
+        ),
+        GalleryImage(
+          title: 'Skills tab',
+          image: 'assets/images/project_pf_03_skills.png',
+        ),
+        GalleryImage(
+          title: 'Interests tab',
+          image: 'assets/images/project_pf_04_interests.png',
+        ),
+        GalleryImage(
+          title: 'Contact tab',
+          image: 'assets/images/project_pf_05_contact.png',
+        ),
+      ],
     ),
   ];
 
@@ -366,14 +405,18 @@ class _Project {
     required this.screenshot,
     required this.githubUrl,
     this.liveUrl,
+    // ignore: unused_element_parameter
     this.isPrivate = false,
     this.gallery = const [],
-    // ignore: unused_element_parameter
+    required this.meta,
     this.role,
     this.highlights = const [],
   });
 
   final String title;
+
+  /// Short line under the title, such as "2026 · Class project".
+  final String meta;
   final String description;
   final List<String> technologies;
 
@@ -521,6 +564,13 @@ class _ProjectCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(project.title, style: textTheme.titleLarge),
+                const SizedBox(height: 4),
+                Text(
+                  project.meta,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Text(project.description, style: textTheme.bodyMedium),
                 if (role != null) _role(context, role),
