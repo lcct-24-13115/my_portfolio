@@ -172,4 +172,20 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('Contact tab lists the references', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(900, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const PortfolioApp());
+
+    await tester.tap(find.text('Contact'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('References'), findsOneWidget);
+    expect(find.text('Engr. Salem M. Layio'), findsOneWidget);
+    expect(find.text('Mr. Art Platon'), findsOneWidget);
+  });
 }

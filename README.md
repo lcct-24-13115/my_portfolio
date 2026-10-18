@@ -19,8 +19,9 @@ La Consolacion College Tanauan).
   - **Interests**: specializations, notable projects (with key features and
     screenshot galleries), and awards
   - **Contact**: email, phone, Facebook, Instagram, TikTok, LinkedIn,
-    GitHub, and home address (opens in Google Maps). Tap a row to open it,
-    or the copy button to copy it.
+    GitHub, and home address (opens in Google Maps), followed by four
+    professional references. Tap a row to open it, or the copy button to
+    copy it.
 - One cohesive design theme (color scheme, spacing, and the Poppins font)
   defined in `lib/app_theme.dart`, with a light/dark mode switch in the app
   bar. The chosen mode is remembered on the next visit.
@@ -51,13 +52,13 @@ lib/
   main.dart              app entry, theme mode, TabBar / TabBarView
   app_theme.dart         shared colors, typography, spacing (light + dark)
   data/contact_data.dart contact details used by more than one tab
+  data/references_data.dart professional references shown in Contact
   utils/link_launcher.dart  opens links, falls back to copying the text
   data/certificates.dart certificate list and filter categories
   screens/               one file per tab
   widgets/               shared widgets (centered animated list, gallery)
 assets/images/           profile photo, certificate and project images
-web/Julia_Alemania_CV.pdf  CV used by the Download CV button
-                         (references list left out for privacy)
+web/Julia_Alemania_CV.pdf  two-page CV used by the Download CV button
 assets/fonts/            Poppins font files
 docs/screenshots/        README screenshots
 test/widget_test.dart    widget tests
