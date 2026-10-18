@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_theme.dart';
 import 'screens/contact_tab.dart';
@@ -7,28 +8,50 @@ import 'screens/interests_tab.dart';
 import 'screens/personal_info_tab.dart';
 import 'screens/skills_tab.dart';
 
-void main() => runApp(const PortfolioApp());
+/// Key used to remember the light/dark choice between visits.
+const String themePrefKey = 'isDarkMode';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var mode = ThemeMode.light;
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool(themePrefKey) ?? false) mode = ThemeMode.dark;
+  } catch (_) {
+    // Storage can be unavailable (private browsing). Fall back to light.
+  }
+  runApp(PortfolioApp(initialThemeMode: mode));
+}
 
 /// Root widget. The themes are defined once in [AppTheme] so every
 /// screen shares the same colors and typography. It also remembers whether
 /// the visitor picked light or dark mode.
 class PortfolioApp extends StatefulWidget {
-  const PortfolioApp({super.key});
+  const PortfolioApp({super.key, this.initialThemeMode = ThemeMode.light});
+
+  /// Theme loaded from storage when the app starts.
+  final ThemeMode initialThemeMode;
 
   @override
   State<PortfolioApp> createState() => _PortfolioAppState();
 }
 
 class _PortfolioAppState extends State<PortfolioApp> {
-  ThemeMode _themeMode = ThemeMode.light;
+  late ThemeMode _themeMode = widget.initialThemeMode;
 
-  /// Switches between light and dark mode.
-  void _toggleTheme() {
+  /// Switches between light and dark mode and remembers the choice.
+  Future<void> _toggleTheme() async {
     setState(() {
       _themeMode = _themeMode == ThemeMode.dark
           ? ThemeMode.light
           : ThemeMode.dark;
     });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(themePrefKey, _themeMode == ThemeMode.dark);
+    } catch (_) {
+      // Saving is optional; the toggle still works for this visit.
+    }
   }
 
   @override

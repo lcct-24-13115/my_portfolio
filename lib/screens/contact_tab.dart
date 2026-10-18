@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../app_theme.dart';
 import '../data/contact_data.dart';
 import '../utils/link_launcher.dart';
+import '../widgets/content_list.dart';
 
 /// Fifth tab: multiple ways to contact me.
 ///
@@ -23,8 +23,7 @@ class ContactTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: AppTheme.pagePadding,
+    return ContentList(
       children: [
         for (final (icon, label, shown, link) in contactItems)
           Card(

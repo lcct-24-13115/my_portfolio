@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../app_theme.dart';
+import '../widgets/content_list.dart';
 
-/// Second tab: educational background, most recent first, with the honors
-/// received at each school.
+/// Second tab: educational background as a vertical timeline, most recent
+/// first, with the honors received at each school.
 class EducationTab extends StatelessWidget {
   const EducationTab({super.key});
 
@@ -82,25 +82,89 @@ class EducationTab extends StatelessWidget {
     );
   }
 
+  /// One timeline entry: a dot and line on the left, the school card on
+  /// the right. The last entry has no line below its dot.
+  Widget _entry(
+    BuildContext context, {
+    required (String, String, String, List<String>) item,
+    required bool isFirst,
+    required bool isLast,
+  }) {
+    final (school, degree, years, honors) = item;
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: 32,
+            child: Column(
+              children: [
+                const SizedBox(height: 18),
+                // The current school gets a filled dot, older ones an outline.
+                Container(
+                  width: 16,
+                  height: 16,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isFirst ? scheme.primary : scheme.surface,
+                    border: Border.all(color: scheme.primary, width: 3),
+                  ),
+                ),
+                if (!isLast)
+                  Expanded(
+                    child: Container(
+                      width: 3,
+                      margin: const EdgeInsets.only(top: 4),
+                      color: scheme.primary.withAlpha(90),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: isLast ? 0 : 4),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        years,
+                        style: textTheme.labelLarge?.copyWith(
+                          color: scheme.primary,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(school, style: textTheme.titleMedium),
+                      const SizedBox(height: 4),
+                      Text(degree, style: textTheme.bodyMedium),
+                      if (honors.isNotEmpty) _honors(context, honors),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: AppTheme.pagePadding,
+    return ContentList(
       children: [
-        for (final (school, degree, years, honors) in _items)
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.school),
-              title: Text(school),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('$degree\n$years'),
-                  if (honors.isNotEmpty) _honors(context, honors),
-                ],
-              ),
-              isThreeLine: true,
-            ),
+        for (var i = 0; i < _items.length; i++)
+          _entry(
+            context,
+            item: _items[i],
+            isFirst: i == 0,
+            isLast: i == _items.length - 1,
           ),
       ],
     );

@@ -11,6 +11,9 @@ class AppTheme {
   /// Seed color: Material 3 generates the full matching palette from it.
   static const Color seed = Color(0xFF0B6FA4);
 
+  /// Font used by the whole app (bundled in assets/fonts).
+  static const String fontFamily = 'Poppins';
+
   /// Gradient behind the profile photo. White text stays readable on it
   /// in both light and dark mode.
   static const List<Color> headerGradient = [
@@ -20,6 +23,9 @@ class AppTheme {
 
   /// Standard padding used by every tab so layouts line up.
   static const EdgeInsets pagePadding = EdgeInsets.all(16);
+
+  /// Widest the content may be on large screens (laptops, tablets).
+  static const double maxContentWidth = 700;
 
   static ThemeData get light => _build(Brightness.light);
 
@@ -34,6 +40,8 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
+      // One font family for every text style in the app.
+      fontFamily: fontFamily,
       appBarTheme: AppBarTheme(
         backgroundColor: isDark ? scheme.surfaceContainerHigh : scheme.primary,
         foregroundColor: isDark ? scheme.onSurface : Colors.white,

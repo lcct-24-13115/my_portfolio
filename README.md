@@ -19,9 +19,27 @@ La Consolacion College Tanauan).
   - **Contact**: email, phone, Facebook, Instagram, TikTok, LinkedIn,
     GitHub, and home address (opens in Google Maps). Tap a row to open it,
     or the copy button to copy it.
-- One cohesive design theme (color scheme, typography, spacing) defined in
-  `lib/app_theme.dart`, with a light/dark mode switch in the app bar.
-- Responsive layout that works on phones, tablets, and the web.
+- One cohesive design theme (color scheme, spacing, and the Poppins font)
+  defined in `lib/app_theme.dart`, with a light/dark mode switch in the app
+  bar. The chosen mode is remembered on the next visit.
+- Responsive layout: content is centered and limited to about 700 px wide on
+  laptops, and uses the full width on phones.
+- Certificate gallery: filter chips (All, Networking, Web, Webinars &
+  Seminars) and a viewer you can swipe, zoom, or browse with the arrow keys.
+- Projects showcase in the Interests tab, vertical education timeline, and
+  light fade-in animations.
+- Link preview image and initials icon, so a shared link shows a name and
+  photo instead of a blank card.
+
+## Screenshots
+
+| Personal | Education | Skills |
+| --- | --- | --- |
+| ![Personal tab](docs/screenshots/personal.png) | ![Education tab](docs/screenshots/education.png) | ![Skills tab](docs/screenshots/skills.png) |
+
+| Interests | Contact | Dark mode |
+| --- | --- | --- |
+| ![Interests tab](docs/screenshots/interests.png) | ![Contact tab](docs/screenshots/contact.png) | ![Dark mode](docs/screenshots/dark_mode.png) |
 
 ## Project structure
 
@@ -31,10 +49,14 @@ lib/
   app_theme.dart         shared colors, typography, spacing (light + dark)
   data/contact_data.dart contact details used by more than one tab
   utils/link_launcher.dart  opens links, falls back to copying the text
+  data/certificates.dart certificate list and filter categories
   screens/               one file per tab
-assets/images/           profile photo and certificate images
+  widgets/               shared widgets (centered animated list, gallery)
+assets/images/           profile photo, certificate and project images
+assets/fonts/            Poppins font files
+docs/screenshots/        README screenshots
 test/widget_test.dart    widget tests
-.github/workflows/       automatic deployment to GitHub Pages
+.github/workflows/       analyze + test, then deploy to GitHub Pages
 ```
 
 ## Run it
@@ -59,5 +81,6 @@ flutter build web      # web version
 flutter build apk      # Android installable file
 ```
 
-The web version is deployed automatically to GitHub Pages whenever changes
-are pushed to the `main` branch.
+Every push to `main` (and every pull request) first runs `flutter analyze`
+and `flutter test` on GitHub. If either fails, nothing is deployed. When both
+pass, the web version is deployed to GitHub Pages.

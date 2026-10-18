@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_theme.dart';
 import '../data/contact_data.dart';
 import '../utils/link_launcher.dart';
+import '../widgets/content_list.dart';
 
 /// First tab: photo, name, age, quick links, and a short bio.
 class PersonalInfoTab extends StatelessWidget {
@@ -175,8 +176,7 @@ class PersonalInfoTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: AppTheme.pagePadding,
+    return ContentList(
       children: [
         _header(context),
         const SizedBox(height: 16),
